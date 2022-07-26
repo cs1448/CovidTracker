@@ -44,8 +44,6 @@ public class CovidDataService {
         for (CSVRecord record : records) {
             Locations locations = new Locations();
 
-            String state = record.get("Province/State");
-            locations.setState(record.get("Province/State"));
             locations.setCountry(record.get("Country/Region"));
 
             int latestCases = Integer.parseInt(record.get(record.size() - 1));
@@ -53,10 +51,29 @@ public class CovidDataService {
 
             locations.setDiffFromPrev(latestCases - prevDay);
             locations.setLatestReportedTotal(latestCases);
-            updatedStats.add(locations);
+
+            if (containsCountry(updatedStats, locations.getCountry())){ //if country is already in arraylist
+                Locations toAddLocation = updateLocations(updatedStats, locations.getCountry(), locations);
+                toAddLocation.setLatestReportedTotal(toAddLocation.getLatestReportedTotal() + locations.getLatestReportedTotal());
+                toAddLocation.setDiffFromPrev(toAddLocation.getDiffFromPrev() + locations.getDiffFromPrev());
+                updatedStats.remove(updateLocations(updatedStats, locations.getCountry(), locations));
+                updatedStats.add(toAddLocation);
+            }
+            else {
+                updatedStats.add(locations);
+            }
 
         }
         this.statistics = updatedStats;
+    }
+
+    public boolean containsCountry(List<Locations> updatedStats, String name) {
+        return updatedStats.stream().anyMatch(o -> o.getCountry().equals(name));
+    }
+
+    public Locations updateLocations(List<Locations> updatedStats, String name, Locations toAddLocations){
+
+        return updatedStats.stream().filter(country -> country.getCountry().equals(name)).findAny().orElse(null);
     }
 
 }

@@ -16,15 +16,6 @@ public class Locations {
 
     private int diffFromPrev;
 
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public String getCountry() {
         return country;
     }
