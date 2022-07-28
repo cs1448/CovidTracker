@@ -11,12 +11,15 @@
 
 <body>
 <div class="container">
-    <h1>Covid Case Tracker</h1>
-    <p>Current Total Reported Covid Cases</p>
+    <h1 class="webpage-title">Covid Case Tracker</h1>
 
-    <div class="jumbotron">
+    <div class="jumbotron"> <!----#e9ecef-->
         <h1 class="display-4" th:text="${totalReportedCases}"></h1>
-        <p class="lead"> Total Covid-19 Cases Reported as of Today</p>
+        <p class="lead">
+            <span>Total Covid-19 Cases Reported as of</span>
+            <span th:text="${currentDate}"></span>
+        </p>
+        <p>Data provided by Johns Hopkins University Center for Systems Science and Engineering </p>
         <hr class="my-4">
         <p>
             <span>New cases reported since previous day:</span>
@@ -24,7 +27,7 @@
         </p>
 
     </div>
-
+    
     <table class="table">
         <tr>
             <th>Country</th>
@@ -37,6 +40,15 @@
             <td th:text="${locationStat.diffFromPrev}">0</td>
         </tr>
     </table>
+
+    <style>
+        tr:nth-child(even) {
+            background-color:  #e9ecef;}
+        th {
+            background-color: beige;
+        }
+
+    </style>
 
 </div>
 </body>

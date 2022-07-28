@@ -15,7 +15,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -52,7 +54,7 @@ public class CovidDataService {
             locations.setDiffFromPrev(latestCases - prevDay);
             locations.setLatestReportedTotal(latestCases);
 
-            if (containsCountry(updatedStats, locations.getCountry())){ //if country is already in arraylist
+            if (containsCountry(updatedStats, locations.getCountry())){
                 Locations toAddLocation = updateLocations(updatedStats, locations.getCountry(), locations);
                 toAddLocation.setLatestReportedTotal(toAddLocation.getLatestReportedTotal() + locations.getLatestReportedTotal());
                 toAddLocation.setDiffFromPrev(toAddLocation.getDiffFromPrev() + locations.getDiffFromPrev());

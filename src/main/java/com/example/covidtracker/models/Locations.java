@@ -1,10 +1,13 @@
 package com.example.covidtracker.models;
 
+import java.util.Date;
+
 public class Locations {
 
     private String state;
     private String country;
     private int latestReportedTotal;
+    private String date;
 
     public int getDiffFromPrev() {
         return diffFromPrev;
@@ -31,6 +34,7 @@ public class Locations {
     public void setLatestReportedTotal(int latestReportedTotal) {
         this.latestReportedTotal = latestReportedTotal;
     }
+    public void setDate(String date){this.date = date;}
 
     @Override
     public String toString() {
